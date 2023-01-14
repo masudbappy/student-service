@@ -1,6 +1,7 @@
 package com.masudbappy.service;
 
 import com.masudbappy.entity.Student;
+import com.masudbappy.feignclients.AddressFeignClient;
 import com.masudbappy.repository.StudentRepository;
 import com.masudbappy.request.CreateStudentRequest;
 import com.masudbappy.response.AddressResponse;
@@ -19,6 +20,9 @@ public class StudentService {
     @Autowired
     WebClient webClient;
 
+    @Autowired
+    AddressFeignClient addressFeignClient;
+
     public StudentResponse createStudent(CreateStudentRequest createStudentRequest) {
 
         Student student = new Student();
@@ -31,7 +35,8 @@ public class StudentService {
 
         StudentResponse studentResponse = new StudentResponse(student);
 
-        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+//        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
 
         return studentResponse;
     }
@@ -40,7 +45,8 @@ public class StudentService {
         Student student = studentRepository.findById(id).get();
         StudentResponse studentResponse = new StudentResponse(student);
 
-        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+//        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
 
         return studentResponse;
     }

@@ -26,6 +26,9 @@ dependencies {
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-loadbalancer'
+	implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

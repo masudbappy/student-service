@@ -24,6 +24,9 @@ public class StudentService {
     @Autowired
     AddressFeignClient addressFeignClient;
 
+    @Autowired
+    CommonService commonService;
+
     public StudentResponse createStudent(CreateStudentRequest createStudentRequest) {
 
         Student student = new Student();
@@ -38,7 +41,7 @@ public class StudentService {
 
 //        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
 //        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
-        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+        studentResponse.setAddressResponse(commonService.getAddressById(student.getAddressId()));
 
         return studentResponse;
     }
@@ -49,7 +52,7 @@ public class StudentService {
 
 //        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
 //        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
-        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
+        studentResponse.setAddressResponse(commonService.getAddressById(student.getAddressId()));
 
         return studentResponse;
     }
@@ -63,7 +66,7 @@ public class StudentService {
     }*/
 
     // This method is modified for circuit breaker and here we will use feign client.
-   @CircuitBreaker(name = "addressService", fallbackMethod = "fallBackGetAddressById")
+   /*@CircuitBreaker(name = "addressService", fallbackMethod = "fallBackGetAddressById")
     public AddressResponse getAddressById (long addressId) {
         AddressResponse addressResponse = addressFeignClient.getById(addressId);
         return addressResponse;
@@ -72,6 +75,6 @@ public class StudentService {
     public AddressResponse fallBackGetAddressById (long addressId, Throwable throwable) {
 
         return new AddressResponse();
-    }
+    }*/
 }
 

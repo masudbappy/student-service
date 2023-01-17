@@ -6,6 +6,7 @@ import com.masudbappy.repository.StudentRepository;
 import com.masudbappy.request.CreateStudentRequest;
 import com.masudbappy.response.AddressResponse;
 import com.masudbappy.response.StudentResponse;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -62,6 +63,7 @@ public class StudentService {
     }*/
 
     // This method is modified for circuit breaker and here we will use feign client.
+   @CircuitBreaker(name = "addressService")
     public AddressResponse getAddressById (long addressId) {
         AddressResponse addressResponse = addressFeignClient.getById(addressId);
         return addressResponse;

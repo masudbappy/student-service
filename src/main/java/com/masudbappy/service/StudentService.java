@@ -63,10 +63,15 @@ public class StudentService {
     }*/
 
     // This method is modified for circuit breaker and here we will use feign client.
-   @CircuitBreaker(name = "addressService")
+   @CircuitBreaker(name = "addressService", fallbackMethod = "fallBackGetAddressById")
     public AddressResponse getAddressById (long addressId) {
         AddressResponse addressResponse = addressFeignClient.getById(addressId);
         return addressResponse;
+    }
+
+    public AddressResponse fallBackGetAddressById (long addressId, Throwable throwable) {
+
+        return new AddressResponse();
     }
 }
 

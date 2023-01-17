@@ -36,7 +36,8 @@ public class StudentService {
         StudentResponse studentResponse = new StudentResponse(student);
 
 //        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
-        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
+//        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
+        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
 
         return studentResponse;
     }
@@ -46,17 +47,24 @@ public class StudentService {
         StudentResponse studentResponse = new StudentResponse(student);
 
 //        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
-        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
+//        studentResponse.setAddressResponse(addressFeignClient.getById(student.getAddressId()));
+        studentResponse.setAddressResponse(getAddressById(student.getAddressId()));
 
         return studentResponse;
     }
 
-    public AddressResponse getAddressById (long addressId) {
+    /*public AddressResponse getAddressById (long addressId) {
         Mono<AddressResponse> addressResponse =
                 webClient.get().uri("/getById/" + addressId)
                         .retrieve().bodyToMono(AddressResponse.class);
 
         return addressResponse.block();
+    }*/
+
+    // This method is modified for circuit breaker and here we will use feign client.
+    public AddressResponse getAddressById (long addressId) {
+        AddressResponse addressResponse = addressFeignClient.getById(addressId);
+        return addressResponse;
     }
 }
 

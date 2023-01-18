@@ -29,6 +29,7 @@ dependencies {
 	implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth'
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

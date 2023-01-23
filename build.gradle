@@ -8,6 +8,11 @@ group = 'com.masudbappy'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+bootJar {
+	archiveBaseName = 'student-service'
+	archiveVersion = '1.0.0'
+	archiveFileName = 'student-service.jar'
+}
 repositories {
 	mavenCentral()
 }
@@ -36,6 +41,7 @@ dependencies {
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 dependencyManagement {
